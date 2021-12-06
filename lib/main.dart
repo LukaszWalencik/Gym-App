@@ -1,8 +1,8 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+
+import 'app/newtrainingday/newtrainingday_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.grey[700],
-        title: Text(
+        title: const Text(
           'Gym App - Be Strong!',
           style: TextStyle(
             color: Colors.amber,
@@ -43,12 +43,6 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.grey[700],
-        foregroundColor: Colors.amber,
-        onPressed: () {},
-        child: Icon(Icons.add),
-      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -56,90 +50,30 @@ class HomePage extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                side: BorderSide(width: 5.0, color: Colors.grey),
-              ),
-              onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => DayOne()));
-              },
-              child: Text(
-                "FIRST DAY TRAINING",
-                style: TextStyle(fontSize: 20, color: Colors.white),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                // Respond to button press
-              },
-              child: Text("First Day Training"),
-            ),
-
-            // IconButton(
-            //   icon: Image.asset('images/hantelicon.jpg'),
-            //   iconSize: 80,
-            //   onPressed: () {
-            //     Navigator.of(context)
-            //         .push(MaterialPageRoute(builder: (_) => DayOne()));
-            //   },
-            // ),
-            // IconButton(
-            //   icon: Image.asset('images/hantelicon.jpg'),
-            //   iconSize: 80,
-            //   onPressed: () {
-            //     Navigator.of(context)
-            //         .push(MaterialPageRoute(builder: (_) => DayTwo()));
-            //   },
-            // ),
-            Center(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class DayOne extends StatelessWidget {
-  const DayOne({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.grey[700],
-        title: Text(
-          'Day One',
-          style: TextStyle(
-            color: Colors.amber,
-            fontSize: 25,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.grey[700],
-        foregroundColor: Colors.amber,
-        onPressed: () {},
-        child: Icon(Icons.add),
-      ),
-      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            ElevatedButton(
-              style: ButtonStyle(),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Cofnij do ekranu głównego'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const NewTrainingDay(),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.add, size: 18),
+                  label: const Text("Add Training Day"),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.grey[700], // background color
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
             )
           ],
         ),
@@ -148,45 +82,49 @@ class DayOne extends StatelessWidget {
   }
 }
 
-class DayTwo extends StatelessWidget {
-  const DayTwo({
-    Key? key,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.grey[700],
-        title: Text(
-          'Day Two',
-          style: TextStyle(
-            color: Colors.amber,
-            fontSize: 25,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.grey[700],
-        foregroundColor: Colors.amber,
-        onPressed: () {},
-        child: Icon(Icons.add),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Cofnij do ekranu głównego'),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
+
+
+
+// class DayTwo extends StatelessWidget {
+//   const DayTwo({
+//     Key? key,
+//   }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         centerTitle: true,
+//         backgroundColor: Colors.grey[700],
+//         title: Text(
+//           'Day Two',
+//           style: TextStyle(
+//             color: Colors.amber,
+//             fontSize: 25,
+//             fontWeight: FontWeight.w600,
+//           ),
+//         ),
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         backgroundColor: Colors.grey[700],
+//         foregroundColor: Colors.amber,
+//         onPressed: () {},
+//         child: Icon(Icons.add),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.end,
+//           children: [
+//             ElevatedButton(
+//               onPressed: () {
+//                 Navigator.of(context).pop();
+//               },
+//               child: Text('Cofnij do ekranu głównego'),
+//             )
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

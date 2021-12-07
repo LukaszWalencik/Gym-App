@@ -1,8 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NewExercise extends StatefulWidget {
-  NewExercise({
+  const NewExercise({
     Key? key,
   }) : super(key: key);
 
@@ -14,7 +16,10 @@ class _NewExerciseState extends State<NewExercise> {
   final exercisecontroller = TextEditingController();
   final commentcontroller = TextEditingController();
 
-  String dropdownValue = 'Plecy';
+  String musclepartlist = 'Back';
+  String setnumber = '1';
+  String repsnumber = '1';
+  String weight = '1';
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +40,11 @@ class _NewExerciseState extends State<NewExercise> {
         color: Colors.amber,
         child: Center(
           child: ListView(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             children: [
-              const Text('Partia mięśni:', style: TextStyle(fontSize: 20)),
+              const Text('Muscle part:', style: TextStyle(fontSize: 20)),
               DropdownButton<String>(
-                value: dropdownValue,
+                value: musclepartlist,
                 // icon: const Icon(Icons.arrow_downward),
                 // iconSize: 24,
                 // elevation: 16,
@@ -48,21 +53,29 @@ class _NewExerciseState extends State<NewExercise> {
                 //   height: 2,
                 //   color: Colors.deepPurpleAccent,
                 // ),
-                onChanged: (String? newValue) {
+                onChanged: (String? pickmuscle) {
                   setState(() {
-                    dropdownValue = newValue!;
+                    musclepartlist = pickmuscle!;
                   });
                 },
-                items: <String>['Plecy', 'Two', 'Free', 'Four']
-                    .map<DropdownMenuItem<String>>((String value) {
+                items: <String>[
+                  'Legs',
+                  'Back',
+                  'Chest',
+                  'Schoulders',
+                  'Biceps',
+                  'Triceps',
+                  'Forearms',
+                  'Stomach'
+                ].map<DropdownMenuItem<String>>((String musclepart) {
                   return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
+                    value: musclepart,
+                    child: Text(musclepart),
                   );
                 }).toList(),
               ),
               const SizedBox(height: 20),
-              const Text('Ćwiczenie:', style: TextStyle(fontSize: 20)),
+              const Text('Exercise:', style: TextStyle(fontSize: 20)),
               TextField(
                 style: const TextStyle(
                   fontSize: (20),
@@ -76,15 +89,87 @@ class _NewExerciseState extends State<NewExercise> {
                   ),
                 ),
               ),
-              const Text('Ilość serii:', style: TextStyle(fontSize: 20)),
+              const Text('Sets:', style: TextStyle(fontSize: 20)),
+              DropdownButton<String>(
+                value: setnumber,
+                // icon: const Icon(Icons.arrow_downward),
+                // iconSize: 24,
+                // elevation: 16,
+                // style: const TextStyle(color: Colors.deepPurple),
+                // underline: Container(
+                //   height: 2,
+                //   color: Colors.deepPurpleAccent,
+                // ),
+                onChanged: (String? picksets) {
+                  setState(() {
+                    setnumber = picksets!;
+                  });
+                },
+                items:
+                    List.generate(20, (int index) => ((index + 1)).toString())
+                        .map<DropdownMenuItem<String>>((String sets) {
+                  return DropdownMenuItem<String>(
+                    value: sets,
+                    child: Text(sets),
+                  );
+                }).toList(),
+              ),
               const SizedBox(height: 20),
-              const Text('Powtórzenia:', style: TextStyle(fontSize: 20)),
+              const Text('Reps:', style: TextStyle(fontSize: 20)),
+              DropdownButton<String>(
+                value: repsnumber,
+                // icon: const Icon(Icons.arrow_downward),
+                // iconSize: 24,
+                // elevation: 16,
+                // style: const TextStyle(color: Colors.deepPurple),
+                // underline: Container(
+                //   height: 2,
+                //   color: Colors.deepPurpleAccent,
+                // ),
+                onChanged: (String? pickreps) {
+                  setState(() {
+                    repsnumber = pickreps!;
+                  });
+                },
+                items:
+                    List.generate(20, (int index) => ((index + 1)).toString())
+                        .map<DropdownMenuItem<String>>((String reps) {
+                  return DropdownMenuItem<String>(
+                    value: reps,
+                    child: Text(reps),
+                  );
+                }).toList(),
+              ),
               const SizedBox(height: 20),
-              const Text('Obciążenie:', style: TextStyle(fontSize: 20)),
+              const Text('Weight:', style: TextStyle(fontSize: 20)),
+              DropdownButton<String>(
+                value: weight,
+                // icon: const Icon(Icons.arrow_downward),
+                // iconSize: 24,
+                // elevation: 16,
+                // style: const TextStyle(color: Colors.deepPurple),
+                // underline: Container(
+                //   height: 2,
+                //   color: Colors.deepPurpleAccent,
+                // ),
+                onChanged: (String? weightnumber) {
+                  setState(() {
+                    weight = weightnumber!;
+                  });
+                },
+                items:
+                    List.generate(200, (int index) => ((index + 1)).toString())
+                        .map<DropdownMenuItem<String>>((String weights) {
+                  return DropdownMenuItem<String>(
+                    value: weights,
+                    child: Text(weights.toString()),
+                  );
+                }).toList(),
+              ),
               const SizedBox(height: 20),
               const Text('Comment:', style: TextStyle(fontSize: 20)),
               TextField(
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: (20),
                 ),
                 controller: commentcontroller,
@@ -96,39 +181,25 @@ class _NewExerciseState extends State<NewExercise> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 70,
+              ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const NewExercise(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.add, size: 18),
+                label: const Text("Add this exercise"),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.grey[700], // background color
+                ),
+              ),
             ],
           ),
-
-          // ElevatedButton(
-          //   style: ButtonStyle(),
-          //   onPressed: () {
-          //     Navigator.of(context).pop();
-          //   },
-          //   child: Text('Cofnij do ekranu głównego'),
-          // )
-        ),
-      ),
-    );
-  }
-}
-
-class NewExerciseTextField extends StatelessWidget {
-  const NewExerciseTextField({
-    Key? key,
-    required this.textcontroller,
-  }) : super(key: key);
-
-  final TextEditingController textcontroller;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: textcontroller,
-      decoration: InputDecoration(
-        hintText: 'To jest podpowiedź',
-        hintStyle: TextStyle(
-          color: Colors.grey[500],
-          fontSize: 15,
         ),
       ),
     );

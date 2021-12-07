@@ -45,7 +45,7 @@ class NewTrainingDay extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (_) => NewExercise(),
+                        builder: (_) => const NewExercise(),
                       ),
                     );
                   },

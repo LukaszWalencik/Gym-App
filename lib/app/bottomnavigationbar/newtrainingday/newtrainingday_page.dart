@@ -1,7 +1,5 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gymapp/app/newexercise/newexercise_page.dart';
+import 'package:gymapp/app/bottomnavigationbar/newexercise/newexercise_page.dart';
 
 class NewTrainingDay extends StatelessWidget {
   const NewTrainingDay({

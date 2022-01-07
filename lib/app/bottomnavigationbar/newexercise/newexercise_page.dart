@@ -1,6 +1,3 @@
-import 'dart:ffi';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NewExercise extends StatefulWidget {
@@ -181,7 +178,7 @@ class _NewExerciseState extends State<NewExercise> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 70,
               ),
               ElevatedButton.icon(

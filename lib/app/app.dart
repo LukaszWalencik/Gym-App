@@ -1,55 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:gymapp/app/bottomnavigationbar/account_page/account_page_content.dart';
-import 'package:gymapp/app/bottomnavigationbar/newtrainingday/newtrainingday_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gymapp/app/cubit/home_cubit.dart';
+import 'package:gymapp/app/home_page_content.dart';
+import 'package:gymapp/app/login_page/login_page_content.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({
+class MyApp extends StatelessWidget {
+  MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Gym App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Root(),
+    );
+  }
+}
+
+class Root extends StatelessWidget {
+  const Root({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  var currentIndex = 2;
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Builder(
-        builder: (context) {
-          if (currentIndex == 0) {
-            return Scaffold(
-              body: Center(
-                child: Text('index 0'),
-              ),
-            );
+    return BlocProvider(
+      create: (context) => HomeCubit()..iniciation(),
+      child: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          final user = state.user;
+          if (user == null) {
+            return LoginPage();
           }
-          if (currentIndex == 1) {
-            return NewTrainingDay();
-          }
-
-          return AccountPage();
+          return HomePage();
         },
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (newIndex) {
-          setState(() {
-            currentIndex = newIndex;
-          });
-        },
-        backgroundColor: Colors.grey[700],
-        selectedItemColor: Colors.amber,
-        unselectedItemColor: Colors.white,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.fitness_center), label: 'Trainig Days'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.add), label: 'Create New Day'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
-        ],
       ),
     );
   }

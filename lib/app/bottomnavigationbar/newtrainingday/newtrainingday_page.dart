@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gymapp/app/bottomnavigationbar/newexercise/newexercise_page.dart';
+import 'package:gymapp/app/bottomnavigationbar/newtrainingday/newexercise/newexercise_page.dart';
 
 class NewTrainingDay extends StatelessWidget {
   const NewTrainingDay({
@@ -21,39 +21,43 @@ class NewTrainingDay extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          hoverColor: Colors.black,
+          backgroundColor: Colors.grey[700],
+          foregroundColor: Colors.amber,
+          splashColor: Colors.black,
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const NewExercise(),
+              ),
+            );
+          }),
       body: Container(
         color: Colors.amber,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+        child: ListView(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // ElevatedButton.icon(
-                //   style: ElevatedButton.styleFrom(
-                //     primary: Colors.grey[700],
-                //   ),
-                //   onPressed: () {
-                //     Navigator.of(context).pop();
-                //   },
-                //   icon: Icon(Icons.arrow_back),
-                //   label: Text('Return'),
-                // ),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const NewExercise(),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.add, size: 18),
-                  label: const Text("Add Exercise"),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.grey[700], // background color
-                  ),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextField(
+                      style: TextStyle(color: Colors.amber),
+                      cursorColor: Colors.amber,
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.title,
+                            color: Colors.amber,
+                          ),
+                          hintText: 'Day name',
+                          filled: true,
+                          fillColor: Colors.grey[700],
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.amber)))),
+                ],
+              ),
             ),
             const SizedBox(
               height: 20,

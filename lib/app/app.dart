@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gymapp/app/cubit/home_cubit.dart';
-import 'package:gymapp/app/home_page_content.dart';
+import 'package:gymapp/app/cubit/root_cubit.dart';
+import 'package:gymapp/app/home_page/home_page_content.dart';
 import 'package:gymapp/app/login_page/login_page_content.dart';
 
 class MyApp extends StatelessWidget {
@@ -14,27 +14,28 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Root(),
+      home: const RootPage(),
     );
   }
 }
 
-class Root extends StatelessWidget {
-  const Root({
+class RootPage extends StatelessWidget {
+  const RootPage({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit()..iniciation(),
-      child: BlocBuilder<HomeCubit, HomeState>(
+      create: (context) => RootCubit(),
+      child: BlocBuilder<RootCubit, RootState>(
         builder: (context, state) {
           final user = state.user;
           if (user == null) {
-            return LoginPage();
+            return const LoginPage();
           }
-          return HomePage();
+
+          return HomePage(user: user);
         },
       ),
     );

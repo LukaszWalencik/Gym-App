@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gymapp/app/bottomnavigationbar/account_page/account_page_content.dart';
 import 'package:gymapp/app/bottomnavigationbar/newtrainingday/newtrainingday_page.dart';
@@ -6,8 +7,10 @@ import 'package:gymapp/app/bottomnavigationbar/training_days/training_days_conte
 class HomePage extends StatefulWidget {
   const HomePage({
     Key? key,
+    required this.user,
   }) : super(key: key);
 
+  final User user;
   @override
   State<HomePage> createState() => _HomePageState();
 }

@@ -1,14 +1,13 @@
+import 'package:bloc/bloc.dart';
+import 'package:meta/meta.dart';
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+part 'root_state.dart';
 
-part 'home_state.dart';
-
-class HomeCubit extends Cubit<HomeState> {
-  HomeCubit()
-      : super(HomeState(
+class RootCubit extends Cubit<RootState> {
+  RootCubit()
+      : super(const RootState(
           user: null,
           isLoading: false,
           errorMessage: '',
@@ -16,19 +15,17 @@ class HomeCubit extends Cubit<HomeState> {
 
   StreamSubscription? _streamSubscription;
 
-  Future<void> iniciation() async {
+  Future<void> start() async {
     emit(
-      HomeState(user: null, isLoading: true, errorMessage: ''),
+      const RootState(user: null, isLoading: true, errorMessage: ''),
     );
 
     _streamSubscription =
         FirebaseAuth.instance.authStateChanges().listen((user) {
-      emit(HomeState(user: user, isLoading: false, errorMessage: ''));
+      RootState(user: user, isLoading: false, errorMessage: '');
     })
           ..onError((error) {
-            emit(
-              HomeState(user: null, isLoading: false, errorMessage: 'error'),
-            );
+            RootState(user: null, isLoading: false, errorMessage: 'error');
           });
   }
 

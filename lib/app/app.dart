@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gymapp/app/bottomnavigationbar/account_page/account_page_content.dart';
 import 'package:gymapp/app/bottomnavigationbar/newtrainingday/newtrainingday_page.dart';
+import 'package:gymapp/app/bottomnavigationbar/training_days/training_days_content.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -20,11 +21,7 @@ class _HomePageState extends State<HomePage> {
       body: Builder(
         builder: (context) {
           if (currentIndex == 0) {
-            return Scaffold(
-              body: Center(
-                child: Text('index 0'),
-              ),
-            );
+            return TrainingDays();
           }
           if (currentIndex == 1) {
             return NewTrainingDay();

@@ -13,7 +13,7 @@ class NewTrainingDay extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.grey[700],
         title: const Text(
-          'Add Training Day',
+          'Create Training Day',
           style: TextStyle(
             color: Colors.amber,
             fontSize: 25,

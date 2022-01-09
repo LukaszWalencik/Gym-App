@@ -45,9 +45,9 @@ class _HomePageState extends State<HomePage> {
         unselectedItemColor: Colors.white,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.fitness_center), label: 'Exercise days'),
+              icon: Icon(Icons.fitness_center), label: 'Trainig Days'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.add), label: 'Add trening day'),
+              icon: Icon(Icons.add), label: 'Create New Day'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
         ],
       ),

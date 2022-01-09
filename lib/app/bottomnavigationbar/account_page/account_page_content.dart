@@ -21,22 +21,26 @@ class AccountPage extends StatelessWidget {
         ),
       ),
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("images/gym.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [],
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("images/gym.jpg"),
+              fit: BoxFit.cover,
             ),
-          ],
-        ),
-      ),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  'You are login as:',
+                  style: TextStyle(color: Colors.amber),
+                ),
+                SizedBox(
+                  height: 45,
+                ),
+              ],
+            ),
+          )),
     );
   }
 }

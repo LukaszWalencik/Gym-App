@@ -1,7 +1,5 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gymapp/app/newexercise/newexercise_page.dart';
+import 'package:gymapp/app/bottomnavigationbar/newtrainingday/newexercise/newexercise_page.dart';
 
 class NewTrainingDay extends StatelessWidget {
   const NewTrainingDay({
@@ -15,7 +13,7 @@ class NewTrainingDay extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.grey[700],
         title: const Text(
-          'Add Training Day',
+          'Create Training Day',
           style: TextStyle(
             color: Colors.amber,
             fontSize: 25,

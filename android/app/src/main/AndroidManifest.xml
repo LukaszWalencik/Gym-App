@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.gymapp">
+    package="com.gymapp.lukasz">
    <application
         android:label="gymapp"
         android:icon="@mipmap/ic_launcher">

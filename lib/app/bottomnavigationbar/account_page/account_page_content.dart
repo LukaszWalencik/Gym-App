@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 class AccountPage extends StatelessWidget {
   const AccountPage({
     Key? key,
+    // required this.user,
   }) : super(key: key);
+
+  // final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +33,9 @@ class AccountPage extends StatelessWidget {
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: const [
+              children: [
                 Text(
-                  'You are login as:',
+                  'You are login as: ',
                   style: TextStyle(color: Colors.amber),
                 ),
                 SizedBox(

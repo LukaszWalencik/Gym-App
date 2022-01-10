@@ -15,7 +15,7 @@ class RootCubit extends Cubit<RootState> {
 
   StreamSubscription? _streamSubscription;
 
-  Future<void> start() async {
+  Future<void> userChecker() async {
     emit(
       const RootState(user: null, isLoading: true, errorMessage: ''),
     );

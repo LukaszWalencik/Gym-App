@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 class LoginPage extends StatefulWidget {
   LoginPage({
     Key? key,
+    // required this.onCreate,
   }) : super(key: key);
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  // final Function onCreate;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -64,6 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 15,
                 ),
                 TextField(
+                  obscureText: true,
                   controller: widget.passwordController,
                   cursorColor: Color(0xff616161),
                   style: TextStyle(color: Color(0xff616161)),
@@ -88,9 +91,10 @@ class _LoginPageState extends State<LoginPage> {
                         try {
                           await FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
-                            email: widget.emailController.text,
-                            password: widget.passwordController.text,
-                          );
+                                  email: widget.emailController.text,
+                                  password: widget.passwordController.text);
+                          widget.emailController.clear();
+                          widget.passwordController.clear();
                         } catch (error) {
                           setState(() {
                             errorMessage = error.toString();
@@ -103,6 +107,9 @@ class _LoginPageState extends State<LoginPage> {
                             email: widget.emailController.text,
                             password: widget.passwordController.text,
                           );
+                          widget.emailController.clear();
+                          widget.passwordController.clear();
+                          // widget.onCreate();
                         } catch (error) {
                           setState(() {
                             errorMessage = error.toString();
@@ -122,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                   TextButton(
                     onPressed: () {
                       setState(() {
-                        creatingAccount == true;
+                        creatingAccount = true;
                       });
                     },
                     child: Text(
@@ -138,7 +145,8 @@ class _LoginPageState extends State<LoginPage> {
                         creatingAccount = false;
                       });
                     },
-                    child: const Text('Already have account?'),
+                    child: const Text('Already have account?',
+                        style: TextStyle(color: Colors.amber)),
                   ),
                 ]
               ],

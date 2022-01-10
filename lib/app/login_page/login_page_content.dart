@@ -2,17 +2,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({
+  LoginPage({
     Key? key,
   }) : super(key: key);
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  var errorMessage = '';
+  var creatingAccount = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +40,14 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Text(creatingAccount == false
+                    ? 'Zaloguj Się'
+                    : 'Zarejestruj sie'),
                 SizedBox(
                   height: 50,
                 ),
                 TextField(
-                    controller: emailController,
+                    controller: widget.emailController,
                     style: TextStyle(color: Color(0xff616161)),
                     cursorColor: Color(0xff616161),
                     decoration: InputDecoration(
@@ -58,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 15,
                 ),
                 TextField(
-                  controller: passwordController,
+                  controller: widget.passwordController,
                   cursorColor: Color(0xff616161),
                   style: TextStyle(color: Color(0xff616161)),
                   decoration: InputDecoration(
@@ -77,21 +83,64 @@ class _LoginPageState extends State<LoginPage> {
                   height: 20,
                 ),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      if (creatingAccount == true) {
+                        try {
+                          await FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                            email: widget.emailController.text,
+                            password: widget.passwordController.text,
+                          );
+                        } catch (error) {
+                          setState(() {
+                            errorMessage = error.toString();
+                          });
+                        }
+                      } else {
+                        try {
+                          await FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                            email: widget.emailController.text,
+                            password: widget.passwordController.text,
+                          );
+                        } catch (error) {
+                          setState(() {
+                            errorMessage = error.toString();
+                          });
+                        }
+                      }
+                    },
                     child: Text(
-                      'Login',
+                      creatingAccount == false ? 'Login' : 'Register',
                       style: TextStyle(color: Color(0xff616161)),
                     ),
                     style: ElevatedButton.styleFrom(primary: Colors.amber)),
                 SizedBox(
                   height: 20,
                 ),
-                TextButton(
-                    onPressed: () {},
+                if (creatingAccount == false) ...[
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        creatingAccount == true;
+                      });
+                    },
                     child: Text(
-                      'Registered',
+                      'Create account',
                       style: TextStyle(color: Colors.amber),
-                    )),
+                    ),
+                  )
+                ],
+                if (creatingAccount == true) ...[
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        creatingAccount = false;
+                      });
+                    },
+                    child: const Text('Already have account?'),
+                  ),
+                ]
               ],
             ),
           ),

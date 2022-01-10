@@ -30,7 +30,7 @@ class AccountPage extends StatelessWidget {
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: [
+              children: const [
                 Text(
                   'You are login as:',
                   style: TextStyle(color: Colors.amber),

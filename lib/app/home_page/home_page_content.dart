@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.grey[700],
         selectedItemColor: Colors.amber,
         unselectedItemColor: Colors.white,
-        items: [
+        items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.fitness_center), label: 'Trainig Days'),
           BottomNavigationBarItem(

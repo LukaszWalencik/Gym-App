@@ -21,13 +21,14 @@ class HomeCubit extends Cubit<HomeState> {
       const HomeState(user: null, isLoading: true, errorMessage: ''),
     );
 
-    _streamSubscription =
-        FirebaseAuth.instance.authStateChanges().listen((user) {
+    _streamSubscription = FirebaseAuth.instance
+        .authStateChanges()
+        .listen((user) {
       HomeState(user: user, isLoading: false, errorMessage: '');
     })
-          ..onError((error) {
-            HomeState(user: null, isLoading: false, errorMessage: 'error');
-          });
+      ..onError((error) {
+        const HomeState(user: null, isLoading: false, errorMessage: 'error');
+      });
   }
 
   @override

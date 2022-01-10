@@ -20,13 +20,14 @@ class RootCubit extends Cubit<RootState> {
       const RootState(user: null, isLoading: true, errorMessage: ''),
     );
 
-    _streamSubscription =
-        FirebaseAuth.instance.authStateChanges().listen((user) {
+    _streamSubscription = FirebaseAuth.instance
+        .authStateChanges()
+        .listen((user) {
       RootState(user: user, isLoading: false, errorMessage: '');
     })
-          ..onError((error) {
-            RootState(user: null, isLoading: false, errorMessage: 'error');
-          });
+      ..onError((error) {
+        const RootState(user: null, isLoading: false, errorMessage: 'error');
+      });
   }
 
   @override

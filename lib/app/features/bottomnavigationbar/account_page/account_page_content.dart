@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:gymapp/app/features/bottomnavigationbar/account_page/cubit/account_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({
     Key? key,
-    // required this.user,
+    required this.email,
   }) : super(key: key);
 
-  // final User user;
+  final String? email;
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +37,25 @@ class AccountPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  'You are login as: ',
+                  'You are login as: $email ',
                   style: TextStyle(color: Colors.amber),
                 ),
                 SizedBox(
-                  height: 45,
+                  height: 20,
                 ),
+                ElevatedButton(
+                  onPressed: () {
+                    context.read<AccountCubit>().logOut();
+                  },
+                  child: Text(
+                    'Logout',
+                    style: TextStyle(color: Colors.amber),
+                  ),
+                  style: ElevatedButton.styleFrom(primary: Colors.grey[700]),
+                ),
+                SizedBox(
+                  height: 20,
+                )
               ],
             ),
           )),

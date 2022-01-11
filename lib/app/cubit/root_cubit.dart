@@ -17,17 +17,30 @@ class RootCubit extends Cubit<RootState> {
 
   Future<void> userChecker() async {
     emit(
-      const RootState(user: null, isLoading: true, errorMessage: ''),
+      const RootState(
+        user: null,
+        isLoading: true,
+        errorMessage: '',
+      ),
     );
 
-    _streamSubscription = FirebaseAuth.instance
-        .authStateChanges()
-        .listen((user) {
-      RootState(user: user, isLoading: false, errorMessage: '');
+    _streamSubscription =
+        FirebaseAuth.instance.authStateChanges().listen((user) {
+      emit(
+        RootState(
+          user: user,
+          isLoading: false,
+          errorMessage: '',
+        ),
+      );
     })
-      ..onError((error) {
-        const RootState(user: null, isLoading: false, errorMessage: 'error');
-      });
+          ..onError((error) {
+            const RootState(
+              user: null,
+              isLoading: false,
+              errorMessage: 'error',
+            );
+          });
   }
 
   @override

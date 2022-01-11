@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gymapp/app/bottomnavigationbar/newtrainingday/newexercise/newexercise_page.dart';
+import 'package:gymapp/app/features/bottomnavigationbar/newtrainingday/newexercise/newexercise_page.dart';
 
 class NewTrainingDay extends StatelessWidget {
   const NewTrainingDay({

@@ -12,53 +12,71 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.grey[700],
-        title: const Text(
-          'Gym App - Be Strong!',
-          style: TextStyle(
-            color: Colors.amber,
-            fontSize: 25,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-      body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("images/gym.jpg"),
-              fit: BoxFit.cover,
+    return BlocProvider(
+      create: (context) => AccountCubit(),
+      child: BlocBuilder<AccountCubit, AccountState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              backgroundColor: Colors.grey[700],
+              title: const Text(
+                'Gym App - Be Strong!',
+                style: TextStyle(
+                  color: Colors.amber,
+                  fontSize: 25,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
-          ),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  'You are login as: $email ',
-                  style: TextStyle(color: Colors.amber),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<AccountCubit>().logOut();
-                  },
-                  child: Text(
-                    'Logout',
-                    style: TextStyle(color: Colors.amber),
+            body: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("images/gym.jpg"),
+                    fit: BoxFit.cover,
                   ),
-                  style: ElevatedButton.styleFrom(primary: Colors.grey[700]),
                 ),
-                SizedBox(
-                  height: 20,
-                )
-              ],
-            ),
-          )),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'You are login as: $email ',
+                        style: TextStyle(color: Colors.amber),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      LogOutButton(),
+                      SizedBox(
+                        height: 20,
+                      )
+                    ],
+                  ),
+                )),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class LogOutButton extends StatelessWidget {
+  const LogOutButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        context.read<AccountCubit>().logOut();
+      },
+      child: Text(
+        'Logout',
+        style: TextStyle(color: Colors.amber),
+      ),
+      style: ElevatedButton.styleFrom(primary: Colors.grey[700]),
     );
   }
 }

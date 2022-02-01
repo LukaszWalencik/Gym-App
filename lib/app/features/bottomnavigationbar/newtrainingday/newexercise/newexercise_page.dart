@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class NewExercise extends StatefulWidget {
@@ -13,10 +14,10 @@ class _NewExerciseState extends State<NewExercise> {
   final exercisecontroller = TextEditingController();
   final commentcontroller = TextEditingController();
 
-  String musclepartlist = 'Back';
-  String setnumber = '1';
-  String repsnumber = '1';
-  String weight = '1';
+  var musclepartlist = 'Back';
+  var setnumber = '1';
+  var repsnumber = '1';
+  var weight = '1';
 
   @override
   Widget build(BuildContext context) {
@@ -42,14 +43,6 @@ class _NewExerciseState extends State<NewExercise> {
               const Text('Muscle part:', style: TextStyle(fontSize: 20)),
               DropdownButton<String>(
                 value: musclepartlist,
-                // icon: const Icon(Icons.arrow_downward),
-                // iconSize: 24,
-                // elevation: 16,
-                // style: const TextStyle(color: Colors.deepPurple),
-                // underline: Container(
-                //   height: 2,
-                //   color: Colors.deepPurpleAccent,
-                // ),
                 onChanged: (String? pickmuscle) {
                   setState(() {
                     musclepartlist = pickmuscle!;
@@ -89,14 +82,6 @@ class _NewExerciseState extends State<NewExercise> {
               const Text('Sets:', style: TextStyle(fontSize: 20)),
               DropdownButton<String>(
                 value: setnumber,
-                // icon: const Icon(Icons.arrow_downward),
-                // iconSize: 24,
-                // elevation: 16,
-                // style: const TextStyle(color: Colors.deepPurple),
-                // underline: Container(
-                //   height: 2,
-                //   color: Colors.deepPurpleAccent,
-                // ),
                 onChanged: (String? picksets) {
                   setState(() {
                     setnumber = picksets!;
@@ -115,14 +100,6 @@ class _NewExerciseState extends State<NewExercise> {
               const Text('Reps:', style: TextStyle(fontSize: 20)),
               DropdownButton<String>(
                 value: repsnumber,
-                // icon: const Icon(Icons.arrow_downward),
-                // iconSize: 24,
-                // elevation: 16,
-                // style: const TextStyle(color: Colors.deepPurple),
-                // underline: Container(
-                //   height: 2,
-                //   color: Colors.deepPurpleAccent,
-                // ),
                 onChanged: (String? pickreps) {
                   setState(() {
                     repsnumber = pickreps!;
@@ -141,14 +118,6 @@ class _NewExerciseState extends State<NewExercise> {
               const Text('Weight:', style: TextStyle(fontSize: 20)),
               DropdownButton<String>(
                 value: weight,
-                // icon: const Icon(Icons.arrow_downward),
-                // iconSize: 24,
-                // elevation: 16,
-                // style: const TextStyle(color: Colors.deepPurple),
-                // underline: Container(
-                //   height: 2,
-                //   color: Colors.deepPurpleAccent,
-                // ),
                 onChanged: (String? weightnumber) {
                   setState(() {
                     weight = weightnumber!;
@@ -183,11 +152,14 @@ class _NewExerciseState extends State<NewExercise> {
               ),
               ElevatedButton.icon(
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => const NewExercise(),
-                    ),
-                  );
+                  FirebaseFirestore.instance.collection('exerciseday').add({
+                    'comment': commentcontroller.text,
+                    'exercisename': exercisecontroller.text,
+                    'muslepart': musclepartlist,
+                    'reps': repsnumber,
+                    'sets': setnumber,
+                    'weight': weight
+                  });
                 },
                 icon: const Icon(Icons.add, size: 18),
                 label: const Text("Add this exercise"),

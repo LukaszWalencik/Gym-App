@@ -65,7 +65,15 @@ class NewTrainingDay extends StatelessWidget {
                                     borderSide:
                                         BorderSide(color: Colors.amber)))),
                         for (final document in documents) ...[
-                          Container(
+                          Dismissible(
+                            key: ValueKey(document.id),
+                            onDismissed: (_) {
+                              FirebaseFirestore.instance
+                                  .collection('exerciseday')
+                                  .doc(document.id)
+                                  .delete();
+                            },
+                            child: Container(
                               padding: EdgeInsets.all(20),
                               color: Colors.grey[700],
                               child: Column(
@@ -155,7 +163,9 @@ class NewTrainingDay extends StatelessWidget {
                                     ],
                                   ),
                                 ],
-                              )),
+                              ),
+                            ),
+                          ),
                         ]
                       ],
                     ),

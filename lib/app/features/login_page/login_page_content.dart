@@ -23,10 +23,9 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginCubit(),
-      child: BlocBuilder<LoginCubit, LoginState>(
-        builder: (context, state) {
+    return StreamBuilder<User?>(
+        stream: null,
+        builder: (context, snapshot) {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
@@ -48,16 +47,23 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(creatingAccount == false
-                          ? 'Zaloguj Się'
-                          : 'Zarejestruj sie'),
+                      Text(
+                        creatingAccount == false
+                            ? 'Zaloguj Się'
+                            : 'Zarejestruj sie',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          color: Colors.white,
+                        ),
+                      ),
                       SizedBox(
                         height: 50,
                       ),
                       TextField(
-                          onChanged: (emailValue) {
-                            context.read<LoginCubit>().emailEnter(emailValue);
-                          },
+                          // onChanged: (emailValue) {
+                          //   context.read<LoginCubit>().emailEnter(emailValue);
+                          // },
                           controller: widget.emailController,
                           style: TextStyle(color: Color(0xff616161)),
                           cursorColor: Color(0xff616161),
@@ -77,11 +83,11 @@ class _LoginPageState extends State<LoginPage> {
                         height: 15,
                       ),
                       TextField(
-                        onChanged: (passwordValue) {
-                          context
-                              .read<LoginCubit>()
-                              .passwordEnter(passwordValue);
-                        },
+                        // onChanged: (passwordValue) {
+                        //   context
+                        //       .read<LoginCubit>()
+                        //       .passwordEnter(passwordValue);
+                        // },
                         obscureText: true,
                         controller: widget.passwordController,
                         cursorColor: Color(0xff616161),
@@ -101,6 +107,16 @@ class _LoginPageState extends State<LoginPage> {
                       SizedBox(
                         height: 20,
                       ),
+                      Text(
+                        errorMessage,
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
                       ElevatedButton(
                           onPressed: () async {
                             if (creatingAccount == true) {
@@ -110,12 +126,12 @@ class _LoginPageState extends State<LoginPage> {
                                         email: widget.emailController.text,
                                         password:
                                             widget.passwordController.text);
-                                widget.emailController.clear();
-                                widget.passwordController.clear();
                               } catch (error) {
                                 setState(() {
-                                  errorMessage = error.toString();
+                                  errorMessage = 'Something went wrong!';
                                 });
+                                widget.emailController.clear();
+                                widget.passwordController.clear();
                               }
                             } else {
                               try {
@@ -129,12 +145,10 @@ class _LoginPageState extends State<LoginPage> {
                                 // widget.onCreate();
                               } catch (error) {
                                 setState(() {
-                                  errorMessage =
-                                      'Nie ma takiego użytkownika lub wprowadzono zle hasło';
-                                  // print(errorMessage);
-                                  widget.emailController.clear();
-                                  widget.passwordController.clear();
+                                  errorMessage = 'Wrong email or password!';
                                 });
+                                widget.emailController.clear();
+                                widget.passwordController.clear();
                               }
                             }
                           },
@@ -152,6 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () {
                             setState(() {
                               creatingAccount = true;
+                              errorMessage = '';
                             });
                           },
                           child: Text(
@@ -177,8 +192,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           );
-        },
-      ),
-    );
+        });
   }
 }

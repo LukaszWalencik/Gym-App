@@ -13,11 +13,11 @@ class NewExercise extends StatefulWidget {
 class _NewExerciseState extends State<NewExercise> {
   final exercisecontroller = TextEditingController();
   final commentcontroller = TextEditingController();
+  final weightcontroller = TextEditingController();
 
   var musclepartlist = 'Back';
   var setnumber = '1';
   var repsnumber = '1';
-  var weight = '1';
 
   @override
   Widget build(BuildContext context) {
@@ -116,21 +116,18 @@ class _NewExerciseState extends State<NewExercise> {
               ),
               const SizedBox(height: 20),
               const Text('Weight:', style: TextStyle(fontSize: 20)),
-              DropdownButton<String>(
-                value: weight,
-                onChanged: (String? weightnumber) {
-                  setState(() {
-                    weight = weightnumber!;
-                  });
-                },
-                items:
-                    List.generate(200, (int index) => ((index + 1)).toString())
-                        .map<DropdownMenuItem<String>>((String weights) {
-                  return DropdownMenuItem<String>(
-                    value: weights,
-                    child: Text(weights.toString()),
-                  );
-                }).toList(),
+              TextField(
+                style: const TextStyle(
+                  fontSize: (20),
+                ),
+                controller: weightcontroller,
+                decoration: InputDecoration(
+                  hintText: 'Write weight used to exercise',
+                  hintStyle: TextStyle(
+                    color: Colors.grey[500],
+                    fontSize: 18,
+                  ),
+                ),
               ),
               const SizedBox(height: 20),
               const Text('Comment:', style: TextStyle(fontSize: 20)),
@@ -158,7 +155,7 @@ class _NewExerciseState extends State<NewExercise> {
                     'muslepart': musclepartlist,
                     'reps': repsnumber,
                     'sets': setnumber,
-                    'weight': weight
+                    'weight': weightcontroller.text,
                   });
                   Navigator.of(context).pop();
                 },

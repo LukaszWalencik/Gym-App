@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gymapp/app/features/bottomnavigationbar/account_page/cubit/account_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,51 +13,44 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AccountCubit(),
-      child: BlocBuilder<AccountCubit, AccountState>(
-        builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              backgroundColor: Colors.grey[700],
-              title: const Text(
-                'Gym App - Be Strong!',
-                style: TextStyle(
-                  color: Colors.amber,
-                  fontSize: 25,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            body: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("images/gym.jpg"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'You are login as: $email ',
-                        style: TextStyle(color: Colors.amber),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      LogOutButton(),
-                      SizedBox(
-                        height: 20,
-                      )
-                    ],
-                  ),
-                )),
-          );
-        },
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.grey[700],
+        title: const Text(
+          'Gym App - Be Strong!',
+          style: TextStyle(
+            color: Colors.amber,
+            fontSize: 25,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
+      body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("images/gym.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  'You are login as: $email ',
+                  style: TextStyle(color: Colors.amber),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                LogOutButton(),
+                SizedBox(
+                  height: 20,
+                )
+              ],
+            ),
+          )),
     );
   }
 }
@@ -70,7 +64,8 @@ class LogOutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        context.read<AccountCubit>().logOut();
+        FirebaseAuth.instance.signOut();
+        // context.read<AccountCubit>().logOut();
       },
       child: Text(
         'Logout',
@@ -80,18 +75,3 @@ class LogOutButton extends StatelessWidget {
     );
   }
 }
-
-// ElevatedButton.icon(
-//                 onPressed: () {
-//                   Navigator.of(context).push(
-//                     MaterialPageRoute(
-//                       builder: (_) => const NewTrainingDay(),
-//                     ),
-//                   );
-//                 },
-//                 icon: const Icon(Icons.add, size: 18),
-//                 label: const Text("Add Training Day"),
-//                 style: ElevatedButton.styleFrom(
-//                   primary: Colors.grey[700], // background color
-//                 ),
-//               ),

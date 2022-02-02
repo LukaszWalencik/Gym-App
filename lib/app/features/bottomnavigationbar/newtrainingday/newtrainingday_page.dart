@@ -12,6 +12,7 @@ class NewTrainingDay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.done))],
         centerTitle: true,
         backgroundColor: Colors.grey[700],
         title: const Text(
@@ -50,20 +51,13 @@ class NewTrainingDay extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        TextField(
-                            style: TextStyle(color: Colors.amber),
-                            cursorColor: Colors.amber,
-                            decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.title,
-                                  color: Colors.amber,
-                                ),
-                                hintText: 'Day name',
-                                filled: true,
-                                fillColor: Colors.grey[700],
-                                border: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.amber)))),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Text(
+                            'Add an exercise using a plus button',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
                         for (final document in documents) ...[
                           Dismissible(
                             key: ValueKey(document.id),
@@ -73,96 +67,99 @@ class NewTrainingDay extends StatelessWidget {
                                   .doc(document.id)
                                   .delete();
                             },
-                            child: Container(
-                              padding: EdgeInsets.all(20),
-                              color: Colors.grey[700],
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text('Comment:  ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
-                                              color: Colors.amber)),
-                                      Text(document['comment'],
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
-                                              color: Colors.amber)),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text('Exercise name:  ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
-                                              color: Colors.amber)),
-                                      Text(document['exercisename'],
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
-                                              color: Colors.amber)),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text('Musclepart:  ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
-                                              color: Colors.amber)),
-                                      Text(document['muslepart'],
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
-                                              color: Colors.amber)),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text('Reps:  ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
-                                              color: Colors.amber)),
-                                      Text(document['reps'].toString(),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
-                                              color: Colors.amber)),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text('Sets:  ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
-                                              color: Colors.amber)),
-                                      Text(document['sets'].toString(),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
-                                              color: Colors.amber)),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text('Weight:  ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
-                                              color: Colors.amber)),
-                                      Text(document['weight'].toString(),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
-                                              color: Colors.amber)),
-                                    ],
-                                  ),
-                                ],
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                padding: EdgeInsets.all(20),
+                                color: Colors.grey[700],
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text('Musclepart:  ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: Colors.amber)),
+                                        Text(document['muslepart'],
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: Colors.amber)),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('Exercise name:  ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: Colors.amber)),
+                                        Text(document['exercisename'],
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: Colors.amber)),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('Reps:  ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: Colors.amber)),
+                                        Text(document['reps'].toString(),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: Colors.amber)),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('Sets:  ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: Colors.amber)),
+                                        Text(document['sets'].toString(),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: Colors.amber)),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('Weight:  ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: Colors.amber)),
+                                        Text(document['weight'].toString(),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: Colors.amber)),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('Comment:  ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: Colors.amber)),
+                                        Text(document['comment'],
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: Colors.amber)),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),

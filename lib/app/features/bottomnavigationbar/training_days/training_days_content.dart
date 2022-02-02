@@ -1,12 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gymapp/app/features/home_page/home_page_content.dart';
+import 'package:gymapp/app/features/bottomnavigationbar/account_page/account_page_content.dart';
 import 'package:gymapp/app/features/bottomnavigationbar/newtrainingday/newtrainingday_page.dart';
 
 class TrainingDays extends StatefulWidget {
   const TrainingDays({
+    required this.email,
+    required this.user,
     Key? key,
   }) : super(key: key);
-
+  final String? email;
+  final User user;
   @override
   State<TrainingDays> createState() => _TrainingDaysState();
 }
@@ -18,6 +24,17 @@ class _TrainingDaysState extends State<TrainingDays> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => AccountPage(email: widget.user.email),
+                  ),
+                );
+              },
+              icon: Icon(Icons.person))
+        ],
         centerTitle: true,
         backgroundColor: Colors.grey[700],
         title: Text(
@@ -40,6 +57,7 @@ class _TrainingDaysState extends State<TrainingDays> {
           FirebaseFirestore.instance.collection('day').add({
             'number': dayname.text,
           });
+          daycontroller.clear();
         },
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -52,7 +70,7 @@ class _TrainingDaysState extends State<TrainingDays> {
                 children: [
                   for (final document in documents) ...[
                     Padding(
-                      padding: const EdgeInsets.all(15.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Dismissible(
                         key: ValueKey(document.id),
                         onDismissed: (_) {
@@ -67,9 +85,8 @@ class _TrainingDaysState extends State<TrainingDays> {
                                 builder: (_) => NewTrainingDay()));
                           },
                           child: Container(
-                            height: 100,
+                            height: 80,
                             width: 100,
-                            padding: EdgeInsets.all(20),
                             color: Colors.grey[700],
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -93,10 +110,16 @@ class _TrainingDaysState extends State<TrainingDays> {
                     padding: EdgeInsets.all(15.0),
                     child: TextField(
                       decoration: InputDecoration(
-                          hintText: 'Name of the day',
-                          border: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(width: 10, color: Colors.red))),
+                        filled: true,
+                        fillColor: Colors.black38,
+                        hintText:
+                            'Write name of the training day and click add',
+                        hintStyle: TextStyle(fontSize: 15),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 2.0),
+                        ),
+                      ),
                       controller: daycontroller,
                     ),
                   )
@@ -104,63 +127,6 @@ class _TrainingDaysState extends State<TrainingDays> {
               ),
             );
           }),
-
-      // Container(
-      //   color: Colors.amber,
-      //   child: ListView(
-      //     children: [
-      //       Padding(
-      //         padding: const EdgeInsets.all(10.0),
-      //         child: Row(
-      //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //           children: [
-      //             Padding(
-      //               padding: const EdgeInsets.all(10.0),
-      //               child: Column(
-      //                 children: [
-      //                   Container(
-      //                     height: 150,
-      //                     width: 150,
-      //                     color: Colors.grey[700],
-      //                     child: Center(
-      //                       child: Text(
-      //                         '1dzien',
-      //                         style: TextStyle(
-      //                             color: Colors.amber,
-      //                             fontSize: 25,
-      //                             fontWeight: FontWeight.w600),
-      //                       ),
-      //                     ),
-      //                   ),
-      //                 ],
-      //               ),
-      //             ),
-      //             Padding(
-      //               padding: const EdgeInsets.all(10.0),
-      //               child: Column(
-      //                 children: [
-      //                   Container(
-      //                     color: Colors.grey[700],
-      //                     child: SizedBox(
-      //                       child: Center(
-      //                           child: Text('1dzien',
-      //                               style: TextStyle(
-      //                                   color: Colors.amber,
-      //                                   fontSize: 25,
-      //                                   fontWeight: FontWeight.w600))),
-      //                       height: 150,
-      //                       width: 150,
-      //                     ),
-      //                   ),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

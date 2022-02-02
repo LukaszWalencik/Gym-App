@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gymapp/app/features/bottomnavigationbar/account_page/account_page_content.dart';
 import 'package:gymapp/app/features/bottomnavigationbar/newtrainingday/newtrainingday_page.dart';
+import 'package:gymapp/app/features/bottomnavigationbar/statspage/statspage_content.dart';
 import 'package:gymapp/app/features/bottomnavigationbar/training_days/training_days_content.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,7 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var currentIndex = 2;
+  var currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +25,20 @@ class _HomePageState extends State<HomePage> {
       body: Builder(
         builder: (context) {
           if (currentIndex == 0) {
-            return TrainingDays();
+            return TrainingDays(
+              email: widget.user.email,
+              user: widget.user,
+            );
           }
           if (currentIndex == 1) {
             return NewTrainingDay();
           }
 
-          return AccountPage(
-            email: widget.user.email,
-          );
+          return StatsPage();
+
+          // return AccountPage(
+          //   email: widget.user.email,
+          // );
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -50,7 +56,8 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.fitness_center), label: 'Trainig Days'),
           BottomNavigationBarItem(
               icon: Icon(Icons.add), label: 'Create New Day'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.leaderboard), label: 'Statistics'),
         ],
       ),
     );

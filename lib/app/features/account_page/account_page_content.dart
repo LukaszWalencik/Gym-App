@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gymapp/app/features/bottomnavigationbar/account_page/cubit/account_cubit.dart';
+import 'package:gymapp/app/features/account_page/cubit/account_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AccountPage extends StatelessWidget {
@@ -65,6 +65,7 @@ class LogOutButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         FirebaseAuth.instance.signOut();
+        Navigator.of(context).pop();
         // context.read<AccountCubit>().logOut();
       },
       child: Text(

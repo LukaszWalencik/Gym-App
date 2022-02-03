@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gymapp/app/features/bottomnavigationbar/account_page/account_page_content.dart';
+import 'package:gymapp/app/features/account_page/account_page_content.dart';
 import 'package:gymapp/app/features/bottomnavigationbar/newtrainingday/newtrainingday_page.dart';
 import 'package:gymapp/app/features/bottomnavigationbar/statspage/statspage_content.dart';
 import 'package:gymapp/app/features/bottomnavigationbar/training_days/training_days_content.dart';
@@ -31,7 +31,10 @@ class _HomePageState extends State<HomePage> {
             );
           }
           if (currentIndex == 1) {
-            return NewTrainingDay();
+            return NewTrainingDay(
+              email: widget.user.email,
+              user: widget.user,
+            );
           }
 
           return StatsPage();

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gymapp/app/features/home_page/home_page_content.dart';
-import 'package:gymapp/app/features/bottomnavigationbar/account_page/account_page_content.dart';
+import 'package:gymapp/app/features/account_page/account_page_content.dart';
 import 'package:gymapp/app/features/bottomnavigationbar/newtrainingday/newtrainingday_page.dart';
 
 class TrainingDays extends StatefulWidget {
@@ -82,7 +82,10 @@ class _TrainingDaysState extends State<TrainingDays> {
                         child: InkWell(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) => NewTrainingDay()));
+                                builder: (_) => NewTrainingDay(
+                                      email: widget.user.email,
+                                      user: widget.user,
+                                    )));
                           },
                           child: Container(
                             height: 80,
